@@ -6,15 +6,15 @@
   <title>KOT To Print</title>
 </head>
 
-<body style="padding-top: 28%;">
+<body>
   <h1>Printing KOT</h1>
-  <h3 id="kot"></h3>
+  <div id="kot"></div>
 </body>
 <script>
   electronAPI.printKOT((event, content) => {
     const date = new Date().toTimeString()
     document.getElementById('kot').innerHTML = ''
-    document.getElementById('kot').innerHTML = content + date
+    document.getElementById('kot').innerHTML = contenta+ " on " + date
     electronAPI.readyToKOT(content)
   })
 </script>

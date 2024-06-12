@@ -3,18 +3,18 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>PDF To Print</title>
+  <title>Receipt To Print</title>
 </head>
 
-<body style="padding-top: 28%;">
+<body>
   <h1>Printing Receipt</h1>
-  <h3 id="attach"></h3>
+  <div id="attach"></div>
 </body>
 <script>
   electronAPI.printReceipt((event, content) => {
     const date = new Date().toTimeString()
     const temp = document.getElementById('attach')
-    temp.innerHTML = content + date
+    temp.innerHTML = content + " on " + date
     electronAPI.readyToPrint(content)
   })
 </script>

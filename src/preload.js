@@ -6,5 +6,7 @@ contextBridge.exposeInMainWorld('electronAPI', {
   printReceipt: (content) => ipcRenderer.on('printReceipt', content),
   printKOT: (content) => ipcRenderer.on('printKOT', content),
   readyToPrint: (content) => ipcRenderer.send('readyToPrint', content),
-  readyToKOT: (content) => ipcRenderer.send('readyToKOT', content)
+  readyToKOT: (content) => ipcRenderer.send('readyToKOT', content),
+  testPreloadSend: (content) => ipcRenderer.send('testPreloadSend', content),
+  testPreloadOn: (content) => ipcRenderer.on('testPreloadOn', content),
 })

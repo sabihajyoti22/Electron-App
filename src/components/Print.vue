@@ -9,6 +9,11 @@
 
 <script>
 export default {
+  mounted(){
+    electronAPI.testPreloadOn((event, content) => {
+      console.log(content)
+    })
+  },
   methods: {
     printPdf() {
       const order = 'From Print Component for Receipt'
@@ -19,6 +24,7 @@ export default {
       setTimeout(() => {
         electronAPI.sendToMainKOT(kot2)
       }, 500)
+      electronAPI.testPreloadSend("Sent data from component to main")
     }
   }
 }
