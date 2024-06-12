@@ -1,6 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('node:path')
-// const MAIN_WINDOW_VITE_DEV_SERVER_URL = 'http://localhost:5173'
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
@@ -24,8 +23,8 @@ const createWindow = () => {
   createReceiptwindow()
   createKOTwindow()
 
-  if (MAIN_WINDOW_VITE_DEV_SERVER_URL) {
-    mainWindow.loadURL(MAIN_WINDOW_VITE_DEV_SERVER_URL);
+  if (process.env.NODE_ENV === 'development' && process.env.MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    mainWindow.loadURL(process.env.MAIN_WINDOW_VITE_DEV_SERVER_URL);
   } else {
     mainWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/index.html`))
   }
@@ -44,12 +43,16 @@ const createReceiptwindow = () => {
     }
   })
 
-  receiptWindow.loadFile("receipt.html").then(() => {
-    console.log("Finished loading receipt.html")
-    mainWindow.webContents.send('testPreloadOn', 'Finished loading receipt.html')
-  }).catch((err) => {
-    console.log(err)
-  })
+  if (process.env.NODE_ENV === 'development' && process.env.MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    receiptWindow.loadURL(`${process.env.MAIN_WINDOW_VITE_DEV_SERVER_URL}/receipt.html`).then(() => {
+      console.log("Finished loading receipt.html")
+      mainWindow.webContents.send('testPreloadOn', 'Finished loading receipt.html')
+    }).catch((err) => {
+      console.log(err)
+    })
+  } else {
+    receiptWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/receipt.html`))
+  }
 }
 
 const createKOTwindow = () => {
@@ -60,15 +63,19 @@ const createKOTwindow = () => {
     webPreferences: {
       nodeIntegration: true,
       preload: path.join(__dirname, 'preload.js')
-    },
+    }
   })
 
-  kotWindow.loadFile("kot.html").then(() => {
-    console.log("Finished loading kot.html")
-    mainWindow.webContents.send('testPreloadOn', 'Finished loading kot.html')
-  }).catch((err) => {
-    console.log(err)
-  })
+  if (process.env.NODE_ENV === 'development' && process.env.MAIN_WINDOW_VITE_DEV_SERVER_URL) {
+    kotWindow.loadURL(`${process.env.MAIN_WINDOW_VITE_DEV_SERVER_URL}/kot.html`).then(() => {
+      console.log("Finished loading kot.html")
+      mainWindow.webContents.send('testPreloadOn', 'Finished loading kot.html')
+    }).catch((err) => {
+      console.log(err)
+    })
+  } else {
+    kotWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/kot.html`))
+  }
 }
 
 app.whenReady().then(() => {
