@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>KOT To Print</title>
+</head>
+
+<body>
+  <h1>Printing KOT</h1>
+  <div id="kot"></div>
+</body>
+<script>
+  electronAPI.printKOT((event, content) => {
+    const date = new Date().toTimeString()
+    document.getElementById('kot').innerHTML = ''
+    document.getElementById('kot').innerHTML = content+ " on " + date
+    electronAPI.readyToKOT(content)
+  })
+</script>
+
+</html>

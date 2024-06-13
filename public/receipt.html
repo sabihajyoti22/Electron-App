@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Receipt To Print</title>
+</head>
+
+<body>
+  <h1>Printing Receipt</h1>
+  <div id="attach"></div>
+</body>
+<script>
+  electronAPI.printReceipt((event, content) => {
+    const date = new Date().toTimeString()
+    const temp = document.getElementById('attach')
+    temp.innerHTML = content + " on " + date
+    electronAPI.readyToPrint(content)
+  })
+</script>
+
+</html>
