@@ -51,9 +51,9 @@ const createReceiptwindow = () => {
     })
   } else {
     receiptWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/receipt.html`)).then(() => {
-      mainWindow.webContents.send('testPreloadOn', 'Finished loading receipt.html')
+      mainWindow.webContents.send('testMainOn', 'Finished loading receipt.html')
     }).catch((err) => {
-      mainWindow.webContents.send('testPreloadOn', 'Error occured on loading receipt.html')
+      mainWindow.webContents.send('testMainOn', 'Error occured on loading receipt.html')
     })
   }
 }
@@ -77,9 +77,9 @@ const createKOTwindow = () => {
     })
   } else {
     kotWindow.loadFile(path.join(__dirname, `../renderer/${MAIN_WINDOW_VITE_NAME}/kot.html`)).then(() => {
-      mainWindow.webContents.send('testPreloadOn', 'Finished loading kot.html')
+      mainWindow.webContents.send('testMainOn', 'Finished loading kot.html')
     }).catch((err) => {
-      mainWindow.webContents.send('testPreloadOn', 'Error occured on loading kot.html')
+      mainWindow.webContents.send('testMainOn', 'Error occured on loading kot.html')
     })
   }
 }
@@ -120,7 +120,7 @@ ipcMain.on('readyToPrint', (event, content) => {
       console.log(failureReason)
     } else {
       console.log('Print Initiated from pdf')
-      mainWindow.webContents.send('testPreloadOn', 'Receipt Printing Successfull')
+      mainWindow.webContents.send('testMainOn', 'Receipt Printing Successfull')
     }
   })
 })
@@ -137,11 +137,11 @@ ipcMain.on('readyToKOT', (event, content) => {
       console.log(failureReason)
     } else {
       console.log('Print Initiated from kot')
-      mainWindow.webContents.send('testPreloadOn', 'KOT Printing Successfull')
+      mainWindow.webContents.send('testMainOn', 'KOT Printing Successfull')
     }
   })
 })
 
-ipcMain.on('testPreloadSend', (event, content) => {
-  mainWindow.webContents.send('testPreloadOn', 'Sent data from main to component')
+ipcMain.on('testMainSend', (event, content) => {
+  mainWindow.webContents.send('testMainOn', 'Sent data from main to component')
 })

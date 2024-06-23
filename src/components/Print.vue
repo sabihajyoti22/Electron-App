@@ -10,7 +10,7 @@
 <script>
 export default {
   mounted(){
-    electronAPI.testPreloadOn((event, content) => {
+    electronAPI.testMainOn((event, content) => {
       console.log(content)
     })
   },
@@ -24,7 +24,7 @@ export default {
       setTimeout(() => {
         electronAPI.sendToMainKOT(kot2)
       }, 500)
-      electronAPI.testPreloadSend("Sent data from component to main")
+      electronAPI.testMainSend("Sent data from component to main")
     }
   }
 }
