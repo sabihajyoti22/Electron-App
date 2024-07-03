@@ -30,7 +30,7 @@ module.exports = {
       config: {
         repository: {
           owner: 'sabihajyoti22',
-          name: 'Vue-Vite-Electron'
+          name: 'Electron-App'
         },
         prerelease: false,
         draft: true
